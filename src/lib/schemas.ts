@@ -7,7 +7,7 @@ export const paymentSchema = z.object({
     studentId: z.number().int().positive(),
     amount: z.number().positive("Jumlah bayar harus positif"),
     monthYear: z.string().regex(monthYearRegex, "Format bulan salah (Gunakan MM-YYYY)"),
-    paymentDate: z.date().optional().default(() => new Date()),
+    paymentDate: z.date().default(() => new Date()), // Removed .optional() to simplify type, handled by default
 });
 
 export const studentSchema = z.object({
