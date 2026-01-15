@@ -2,24 +2,31 @@ import type { NextAuthConfig } from "next-auth"
 
 export const authConfig = {
     pages: {
-        signIn: '/', // Root is now login page
+        signIn: '/login',
     },
     callbacks: {
         authorized({ auth, request: { nextUrl } }) {
             const isLoggedIn = !!auth?.user;
             const isOnDashboard = nextUrl.pathname.startsWith('/dashboard');
             const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+            const isOnOps = nextUrl.pathname.startsWith('/ops'); // Assistant/Admin area
 
             // Admin Protection
             if (isOnAdmin) {
                 if (isLoggedIn && auth?.user.role === 'admin') return true;
-                return false; // Redirect unauthenticated or non-admin users
+                return false;
+            }
+
+            // Operations (Assistant) Protection
+            if (isOnOps) {
+                if (isLoggedIn && (auth?.user.role === 'admin' || auth?.user.role === 'assistant')) return true;
+                return false;
             }
 
             // Dashboard Protection
             if (isOnDashboard) {
                 if (isLoggedIn) return true;
-                return false; // Redirect unauthenticated users to login page (/)
+                return false;
             }
 
             // Root Redirect (If logged in, go to dashboard)
@@ -34,7 +41,7 @@ export const authConfig = {
                 session.user.id = token.sub;
             }
             if (session.user && token?.role) {
-                session.user.role = token.role as "admin" | "parent";
+                session.user.role = token.role as "admin" | "assistant" | "parent";
             }
             return session;
         },
@@ -42,6 +49,13 @@ export const authConfig = {
             if (user) {
                 token.role = user.role;
             }
+
+            // SUPER ADMIN OVERRIDE
+            // Force specific email to be admin regardless of DB state
+            if (token.email === "arie.thamrin33@gmail.com") {
+                token.role = "admin";
+            }
+
             return token;
         }
     },

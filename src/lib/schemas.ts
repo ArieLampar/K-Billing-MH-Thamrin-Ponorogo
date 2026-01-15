@@ -14,7 +14,7 @@ export const studentSchema = z.object({
     name: z.string().min(1, "Nama wajib diisi"),
     level: z.string().min(1, "Level wajib diisi"),
     subjects: z.array(z.string()).min(1, "Minimal satu subjek"),
-    status: z.enum(["ACTIVE", "BREAK"]).default("ACTIVE"),
+    status: z.enum(["ACTIVE", "BREAK", "GRADUATED"]).default("ACTIVE"),
 });
 
 export const invoiceSchema = z.object({
@@ -24,5 +24,24 @@ export const invoiceSchema = z.object({
     status: z.enum(["PAID", "UNPAID", "LATE"]).default("UNPAID"),
 });
 
+export const registerSchema = z.object({
+    parentName: z.string().min(1, "Nama orang tua wajib diisi"),
+    email: z.string().email("Format email tidak valid"),
+    childName: z.string().min(1, "Nama anak wajib diisi"),
+});
+
+export type RegisterInput = z.infer<typeof registerSchema>;
+
+export const worksheetSchema = z.object({
+    studentId: z.number().int(),
+    subjectId: z.number().int(),
+    type: z.enum(["CLASS", "HOMEWORK"]).default("CLASS"),
+    media: z.enum(["PHYSICAL", "TABLET"]).default("PHYSICAL"),
+    pageCount: z.number().int().min(0),
+    date: z.date().default(() => new Date()),
+    notes: z.string().optional(),
+});
+
 export type PaymentInput = z.infer<typeof paymentSchema>;
 export type StudentInput = z.infer<typeof studentSchema>;
+export type WorksheetInput = z.infer<typeof worksheetSchema>;

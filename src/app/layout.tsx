@@ -17,6 +17,23 @@ import { Toaster } from "@/components/ui/sonner";
 export const metadata: Metadata = {
   title: "K-Billing Kumon MH Thamrin Ponorogo",
   description: "Sistem Administrasi Kumon",
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "K-Billing",
+  },
+  formatDetection: {
+    telephone: false,
+  },
+};
+
+export const viewport = {
+  themeColor: "#005197",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false, // Prevent zooming for "app-like" feel
 };
 
 export default function RootLayout({

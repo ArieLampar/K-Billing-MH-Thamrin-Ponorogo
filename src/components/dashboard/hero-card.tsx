@@ -8,7 +8,7 @@ interface HeroCardProps {
 
 export function HeroCard({ totalAmount, month }: HeroCardProps) {
     return (
-        <Card className="rounded-[2rem] bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg border-none">
+        <Card className="rounded-[2.5rem] bg-gradient-to-br from-primary to-primary/80 text-primary-foreground shadow-lg border-none">
             <CardHeader className="pb-2">
                 <CardTitle className="text-lg font-medium opacity-90">Total Penagihan {month}</CardTitle>
             </CardHeader>

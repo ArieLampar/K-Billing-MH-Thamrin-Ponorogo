@@ -1,20 +1,24 @@
+// src/types/next-auth.d.ts
 import { DefaultSession } from "next-auth"
-import { AdapterUser } from "@auth/core/adapters"
 
 declare module "next-auth" {
-    interface User {
-        role: "admin" | "parent"
-    }
-
     interface Session {
         user: {
-            role: "admin" | "parent"
+            id?: string
+            role?: "admin" | "assistant" | "parent"
+            teachingLevel?: "BAWAH" | "TENGAH" | "ATAS" | null // New
         } & DefaultSession["user"]
+    }
+
+    interface User {
+        role?: "admin" | "assistant" | "parent"
+        teachingLevel?: "BAWAH" | "TENGAH" | "ATAS" | null // New
     }
 }
 
-declare module "@auth/core/adapters" {
-    interface AdapterUser {
-        role: "admin" | "parent";
+declare module "next-auth/jwt" {
+    interface JWT {
+        role?: "admin" | "assistant" | "parent"
+        teachingLevel?: "BAWAH" | "TENGAH" | "ATAS" | null // New
     }
 }

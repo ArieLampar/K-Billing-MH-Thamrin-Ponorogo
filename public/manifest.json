@@ -1,0 +1,27 @@
+{
+    "name": "K-Billing Kumon MH Thamrin",
+    "short_name": "K-Billing",
+    "description": "Sistem Administrasi Kumon MH Thamrin Ponorogo",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#005197",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "screenshots": [],
+    "categories": [
+        "productivity",
+        "education"
+    ]
+}
